@@ -25,6 +25,9 @@ do
 	fi
 
 	case $cmd in
+	00) ;& 01) ;& 02) ;& 03) ;& 04) ;& 05) ;& 06) ;& 07) ;& 08) ;& 09)
+		xdotool key $(echo $cmd | sed 's/0//')
+		;;
 	${button["play-pause"]}) # play/pause
 		playerctl play-pause
 		;;
