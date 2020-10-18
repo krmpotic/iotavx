@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source button_codes
+source  etc/button_codes.sh
 
 while read cmd;
 do
@@ -13,6 +13,9 @@ do
 		;;
 	${button["shuffle"]})
 		playerctl shuffle | grep On && playerctl shuffle Off || playerctl shuffle On
+		;;
+	${button["eject"]})
+		etc/switch-audio.sh
 		;;
 	*)
 		echo ?? $cmd
