@@ -34,6 +34,12 @@ do
 	${button["previous"]})   # previous
 		playerctl previous
 		;;
+	${button["seek+"]})      # forward
+		playerctl position 10+
+		;;
+	${button["seek-"]})      # backward
+		playerctl position 10-
+		;;
 	${button["stop"]})       # stop
 		playerctl stop
 		;;
