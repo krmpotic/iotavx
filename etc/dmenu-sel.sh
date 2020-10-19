@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 chosen="."
 relpath=$chosen
 while [ -d "$chosen" ]; do
