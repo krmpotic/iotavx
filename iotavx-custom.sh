@@ -1,17 +1,17 @@
 #!/bin/bash
 dmenu_opts="-l 10 -m 0 -fn 'Sans:pixelsize=50'"
-f_ff="$(mktemp)" # add f-flag file
 
-trap "rm -f $f_ff; echo cleaning up... " 1 2 15
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # necessary?
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 source $DIR/etc/button_codes.sh
+
+f_ff="$(mktemp)" # add f-flag file
+trap "rm -f $f_ff; echo cleaning up... " 1 2 15
 
 rm -f $f_ff
 while read cmd;
 do
 	if [ -a $f_ff ]; then
-		echo "f flag ON"
 		case $cmd in
 		${button["folder+"]})    xdotool key Home ;;
 		${button["folder-"]})    xdotool key End ;;
@@ -47,10 +47,12 @@ do
 		playerctl stop
 		;;
 	${button["shuffle"]})    # shuffle on/off
-		playerctl shuffle | grep On && playerctl shuffle Off || playerctl shuffle On
+		playerctl shuffle | grep On && \
+			playerctl shuffle Off || playerctl shuffle On
 		;;
-	${button["repeat"]})       # loop none/playlist
-		playerctl loop | grep None && playerctl loop Playlist || playerctl loop None
+	${button["repeat"]})     # loop none/playlist
+		playerctl loop | grep None && \
+			playerctl loop Playlist || playerctl loop None
 		;;
 	${button["eject"]})      # switch audio output
 		$DIR/etc/switch-audio.sh
