@@ -1,12 +1,14 @@
 #!/bin/bash
 dmenu_opts="-l 10 -m 0 -fn 'Sans:pixelsize=50'"
-
+ms=(5 15 25 50) # mouse steps
+ms_i=0
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 source $DIR/etc/button_codes.sh
 
-f_ff="$(mktemp)" # add f-flag file
-trap "rm -f $f_ff; echo cleaning up... " 1 2 15
+f_ff="$(mktemp)" # folder-flag file
+m_ff="$(mktemp)" # mouse-flag file
+trap "rm -f $f_ff $m_ff; echo cleaning up... " 1 2 15
 
 rm -f $f_ff
 while read cmd;
@@ -18,6 +20,25 @@ do
 		${button["next"]})       xdotool key Down ;;
 		${button["previous"]})   xdotool key Up ;;
 		${button["play-pause"]}) xdotool key Enter ;;
+		${button["eject"]})      xdotool key Escape ;;
+		*) ;;
+		esac
+		continue
+	fi
+
+	if [ -a $m_ff ]; then
+		case $cmd in
+		${button["mode"]})       rm -f $m_ff ;;
+		${button["stop"]})       ms_i=$(expr \( $ms_i + 1 \) % ${#ms[@]}) ;;
+		${button["folder+"]})    xdotool mousemove_relative 0 -${ms[$ms_i]} ;;
+		${button["folder-"]})    xdotool mousemove_relative 0 +${ms[$ms_i]};;
+		${button["next"]})       xdotool mousemove_relative +${ms[$ms_i]} ;;
+		${button["previous"]})   xdotool mousemove_relative -${ms[$ms_i]} ;;
+		${button["seek-"]})      xdotool click 1 ;;
+		${button["play-pause"]}) xdotool click 2 ;;
+		${button["seek+"]})      xdotool click 3 ;;
+		${button["shuffle"]})    xdotool click 4 ;;
+		${button["repeat"]})     xdotool click 5 ;;
 		${button["eject"]})      xdotool key Escape ;;
 		*) ;;
 		esac
@@ -62,10 +83,13 @@ do
 		{ file=$($DIR/custom/dmenu-sel.sh $dmenu_opts) && \
 			xdg-open $file; rm $f_ff; } &
 		;;
+	${button["mode"]})       # mouse
+		touch $m_ff
+		;;
 	*)
 		echo ?? $cmd
 		;;
 	esac
 done < $1
 
-rm -f $f_ff
+rm -f $f_ff $m_ff
