@@ -5,7 +5,7 @@ FIFO=/tmp/irdata.fifo
 setup:
 	sudo chown $(shell whoami) $(PORT)
 	stty $(PORT) $(BAUD)
-	mkfifo $(FIFO)
+	-mkfifo $(FIFO) 2>/dev/null
 
 receive:
 	sed -n '/IrData:/p' <$(PORT) | sed 's/.*IrData://' > $(FIFO)
@@ -13,4 +13,8 @@ receive:
 decode:
 	./iotavx-custom.sh $(FIFO)
 
-.PHONY: setup receive decode
+test:
+	-mkfifo $(FIFO) 2>/dev/null
+	tail -f $(FIFO) | ./iotavx-custom.sh /dev/stdin
+
+.PHONY: setup receive decode test
