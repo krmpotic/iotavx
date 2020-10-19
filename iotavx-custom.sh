@@ -55,11 +55,11 @@ do
 			playerctl loop Playlist || playerctl loop None
 		;;
 	${button["eject"]})      # switch audio output
-		$DIR/etc/switch-audio.sh
+		$DIR/custom/switch-audio.sh
 		;;
 	${button["folder+"]})    # xdg-open with directory-browser
 		touch $f_ff
-		{ file=$($DIR/etc/dmenu-sel.sh $dmenu_opts) && \
+		{ file=$($DIR/custom/dmenu-sel.sh $dmenu_opts) && \
 			xdg-open $file; rm $f_ff; } &
 		;;
 	*)
