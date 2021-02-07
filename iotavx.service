@@ -1,0 +1,23 @@
+[Unit]
+Description=IOTAVX Remote Control Service
+
+# man 5 systemd.unit
+# "Use the BindsTo= dependency type together with After= to ensure that a unit
+# may never be in active state without a specific other unit also in active
+# state"
+BindsTo=dev-ttyUSB0.device
+After=dev-ttyUSB0.device
+
+[Install]
+WantedBy=dev-iotavx.device
+
+[Service]
+User=lvx
+Group=uucp
+Type=exec
+Environment="DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
+StandardInput=null
+StandardError=journal
+StandardOutput=journal
+TTYPath=/dev/null
+ExecStart=/home/lvx/Code/go/src/iotavx/iotavx /dev/iotavx

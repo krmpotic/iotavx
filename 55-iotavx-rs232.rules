@@ -1,0 +1,6 @@
+SUBSYSTEM!="tty", GOTO="rules_end"
+ACTION!="add", GOTO="rules_end"
+
+ATTRS{interface}=="US232 USB-Serial Cable", SYMLINK="iotavx", RUN{program}+="/usr/bin/stty -F %N raw", RUN{program}+="/usr/bin/stty -F %N 115200", RUN{program} +="/usr/bin/stty -F %N -echo -echoe -echok", TAG+="systemd"
+
+LABEL="rules_end"
