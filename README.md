@@ -7,10 +7,9 @@ we can receive strings such as
 
 `IrAddr:<iraddr> IrData:<irdata>`
 
-where `<irdata>` is a button code, mapped to buttons in etc/button_codes.sh
+where `<irdata>` is a button code
 
 We can use this to define our own actions for the remote.
-See iota-custom.sh for an example.
 
 ## Requirements
 
@@ -19,8 +18,5 @@ See iota-custom.sh for an example.
 - RS232 -> USB adapter
 
 ## Software
-- Linux (tested on Arch)
-
-### iotavx-custom.sh
-- playerctl
-- dmenu
+- go
+- playerctl 
