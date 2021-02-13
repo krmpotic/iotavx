@@ -61,27 +61,27 @@ func execute(c int) {
 		if err := exec.Command("playerctl", "next").Run(); err != nil {
 			fmt.Fprintf(os.Stderr, "%s\n", err)
 		}
-	 code["previous"]:
+	case code["previous"]:
 		fmt.Println("previous")
 		if err := exec.Command("playerctl", "previous").Run(); err != nil {
 			fmt.Fprintf(os.Stderr, "%s\n", err)
 		}
-	 code["seek-"]:
+	case code["seek-"]:
 		fmt.Println("seek-")
 		if err := exec.Command("playerctl", "position", "10-").Run(); err != nil {
 			fmt.Fprintf(os.Stderr, "%s\n", err)
 		}
-	 code["seek+"]:
+	case code["seek+"]:
 		fmt.Println("seek+")
 		if err := exec.Command("playerctl", "position", "10+").Run(); err != nil {
 			fmt.Fprintf(os.Stderr, "%s\n", err)
 		}
-	 code["stop"]:
+	case code["stop"]:
 		fmt.Println("stop")
 		if err := exec.Command("playerctl", "stop").Run(); err != nil {
 			fmt.Fprintf(os.Stderr, "%s\n", err)
 		}
-	 code["shuffle"]:
+	case code["shuffle"]:
 		fmt.Println("shuffle")
 		if err := exec.Command("playerctl", "shuffle").Run(); err != nil {
 			fmt.Fprintf(os.Stderr, "%s\n", err)
