@@ -50,42 +50,32 @@ var code = map[string]int{
 }
 
 func execute(c int) {
+	var err error
 	switch c {
 	case code["play-pause"]:
 		fmt.Println("play-pause")
-		if err := exec.Command("playerctl", "play-pause").Run(); err != nil {
-			fmt.Fprintf(os.Stderr, "%s\n", err)
-		}
+		err = exec.Command("playerctl", "play-pause").Run();
 	case code["next"]:
 		fmt.Println("next")
-		if err := exec.Command("playerctl", "next").Run(); err != nil {
-			fmt.Fprintf(os.Stderr, "%s\n", err)
-		}
+		err = exec.Command("playerctl", "next").Run();
 	case code["previous"]:
 		fmt.Println("previous")
-		if err := exec.Command("playerctl", "previous").Run(); err != nil {
-			fmt.Fprintf(os.Stderr, "%s\n", err)
-		}
+		err = exec.Command("playerctl", "previous").Run();
 	case code["seek-"]:
 		fmt.Println("seek-")
-		if err := exec.Command("playerctl", "position", "10-").Run(); err != nil {
-			fmt.Fprintf(os.Stderr, "%s\n", err)
-		}
+		err = exec.Command("playerctl", "position", "10-").Run();
 	case code["seek+"]:
 		fmt.Println("seek+")
-		if err := exec.Command("playerctl", "position", "10+").Run(); err != nil {
-			fmt.Fprintf(os.Stderr, "%s\n", err)
-		}
+		err = exec.Command("playerctl", "position", "10+").Run();
 	case code["stop"]:
 		fmt.Println("stop")
-		if err := exec.Command("playerctl", "stop").Run(); err != nil {
-			fmt.Fprintf(os.Stderr, "%s\n", err)
-		}
+		err = exec.Command("playerctl", "stop").Run();
 	case code["shuffle"]:
 		fmt.Println("shuffle")
-		if err := exec.Command("playerctl", "shuffle").Run(); err != nil {
-			fmt.Fprintf(os.Stderr, "%s\n", err)
-		}
+		err = exec.Command("playerctl", "shuffle").Run();
+	}
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err);
 	}
 }
 
