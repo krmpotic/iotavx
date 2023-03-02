@@ -1,6 +1,9 @@
+# udev .rules file to create a symlink /dev/iotavx, and configure the serial device
+
 SUBSYSTEM!="tty", GOTO="rules_end"
 ACTION!="add", GOTO="rules_end"
 
+# use `udevadm info -a /dev/ttyUSB0` to find out your unique ATTRS
 ATTRS{interface}=="US232 USB-Serial Cable", SYMLINK="iotavx", RUN{program}+="/usr/bin/stty -F %N raw", RUN{program}+="/usr/bin/stty -F %N 115200", RUN{program} +="/usr/bin/stty -F %N -echo -echoe -echok", TAG+="systemd"
 
 LABEL="rules_end"
