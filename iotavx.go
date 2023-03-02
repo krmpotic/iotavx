@@ -16,28 +16,28 @@ func execute(c int) {
 	switch c {
 	case code["play-pause"]:
 		fmt.Println("play-pause")
-		err = exec.Command("playerctl", "play-pause").Run();
+		err = exec.Command("playerctl", "play-pause").Run()
 	case code["next"]:
 		fmt.Println("next")
-		err = exec.Command("playerctl", "next").Run();
+		err = exec.Command("playerctl", "next").Run()
 	case code["previous"]:
 		fmt.Println("previous")
-		err = exec.Command("playerctl", "previous").Run();
+		err = exec.Command("playerctl", "previous").Run()
 	case code["seek-"]:
 		fmt.Println("seek-")
-		err = exec.Command("playerctl", "position", "10-").Run();
+		err = exec.Command("playerctl", "position", "10-").Run()
 	case code["seek+"]:
 		fmt.Println("seek+")
-		err = exec.Command("playerctl", "position", "10+").Run();
+		err = exec.Command("playerctl", "position", "10+").Run()
 	case code["stop"]:
 		fmt.Println("stop")
-		err = exec.Command("playerctl", "stop").Run();
+		err = exec.Command("playerctl", "stop").Run()
 	case code["shuffle"]:
 		fmt.Println("shuffle")
-		err = exec.Command("playerctl", "shuffle").Run();
+		err = exec.Command("playerctl", "shuffle").Run()
 	}
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err);
+		fmt.Fprintf(os.Stderr, "%s\n", err)
 	}
 }
 
