@@ -50,8 +50,7 @@ func main() {
 	s := bufio.NewScanner(file)
 
 	for s.Scan() {
-		if sm := re_irdata.FindSubmatch([]byte(s.Text())); sm != nil && len(sm) == 2 {
-			//fmt.Println(s.Text())
+		if sm := re_irdata.FindSubmatch(s.Bytes()); sm != nil && len(sm) == 2 {
 			c, err := strconv.ParseInt(string(sm[1]), 16, 64)
 			if err != nil {
 				continue
