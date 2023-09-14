@@ -5,8 +5,8 @@ Description=IOTAVX Remote Control Service
 # "Use the BindsTo= dependency type together with After= to ensure that a unit
 # may never be in active state without a specific other unit also in active
 # state"
-BindsTo=dev-ttyUSB0.device
-After=dev-ttyUSB0.device
+BindsTo=dev-iotavx.device
+After=dev-iotavx.device
 
 [Install]
 WantedBy=dev-iotavx.device
